@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#ffffff"
+    tools:context="com.example.together.SettingActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="5dp">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/situationButton"
+            android:text="상황판"
+            android:textStyle="bold"
+            android:textSize="18dp"
+            android:background="#ffffff"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/rankingButton"
+            android:text="랭킹표"
+            android:textStyle="bold"
+            android:textSize="18dp"
+            android:background="#ffffff"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/diaryButton"
+            android:text="일기"
+            android:textStyle="bold"
+            android:textSize="18dp"
+            android:background="#ffffff"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/settingButton"
+            android:text="설정"
+            android:textStyle="bold"
+            android:textSize="18dp"
+            android:background="#ffffff"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"/>
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:id="@+id/notice">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="여기는 설정 창입니다."/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="금연 시작 날짜"
+                android:textSize="20dp"
+                android:textColor="@color/colorDark" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
+
+                <EditText
+                    android:layout_width="280dp"
+                    android:layout_height="wrap_content"
+                    android:hint="year"
+                    android:layout_gravity="center"
+                    android:padding="10dp"
+                    android:id="@+id/yearText"
+                    android:inputType="number"
+                    android:textColor="@android:color/background_dark"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"/>
+
+                <EditText
+                    android:layout_width="280dp"
+                    android:layout_height="wrap_content"
+                    android:hint="month"
+                    android:layout_gravity="center"
+                    android:padding="10dp"
+                    android:id="@+id/monthText"
+                    android:inputType="number"
+                    android:textColor="@android:color/background_dark"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"/>
+
+                <EditText
+                    android:layout_width="280dp"
+                    android:layout_height="wrap_content"
+                    android:hint="day"
+                    android:layout_gravity="center"
+                    android:padding="10dp"
+                    android:id="@+id/dayText"
+                    android:inputType="number"
+                    android:textColor="@android:color/background_dark"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"/>
+
+                <EditText
+                    android:layout_width="280dp"
+                    android:layout_height="wrap_content"
+                    android:hint="hour"
+                    android:layout_gravity="center"
+                    android:padding="10dp"
+                    android:id="@+id/hourText"
+                    android:inputType="number"
+                    android:textColor="@android:color/background_dark"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"/>
+
+                <EditText
+                    android:layout_width="280dp"
+                    android:layout_height="wrap_content"
+                    android:hint="minute"
+                    android:layout_gravity="center"
+                    android:padding="10dp"
+                    android:id="@+id/minuteText"
+                    android:inputType="number"
+                    android:textColor="@android:color/background_dark"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="평균 흡연 시간"
+                    android:textSize="20dp"
+                    android:textColor="@color/colorDark" />
+
+                <EditText
+                    android:layout_width="280dp"
+                    android:layout_height="wrap_content"
+                    android:hint="minute"
+                    android:layout_gravity="center"
+                    android:padding="10dp"
+                    android:id="@+id/smokingtimeText"
+                    android:inputType="number"
+                    android:textColor="@android:color/background_dark"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="하루 흡연 개수"
+                    android:textSize="20dp"
+                    android:textColor="@color/colorDark" />
+
+                <EditText
+                    android:layout_width="280dp"
+                    android:layout_height="wrap_content"
+                    android:hint="흡연개수"
+                    android:layout_gravity="center"
+                    android:padding="10dp"
+                    android:id="@+id/smokingnumberText"
+                    android:inputType="number"
+                    android:textColor="@android:color/background_dark"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:padding="10dp"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@android:color/background_dark"
+                    android:text="개피"
+                    android:textSize="18dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="담배가격"
+                    android:textSize="20dp"
+                    android:textColor="@color/colorDark" />
+
+                <EditText
+                    android:layout_width="280dp"
+                    android:layout_height="wrap_content"
+                    android:hint="담배가격"
+                    android:layout_gravity="center"
+                    android:padding="10dp"
+                    android:id="@+id/smokingvalueText"
+                    android:inputType="number"
+                    android:textColor="@android:color/background_dark"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:padding="10dp"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@android:color/background_dark"
+                    android:text="원"
+                    android:textSize="18dp"/>
+
+            </LinearLayout>
+
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="저장"
+                android:textSize="30dp"
+                android:textColor="@android:color/background_dark"
+                android:id="@+id/saveButton"
+                />
+
+        </LinearLayout>
+
+
+
+    </FrameLayout>
+
+</LinearLayout>

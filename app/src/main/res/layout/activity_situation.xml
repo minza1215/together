@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#ffffff"
+    tools:context="com.example.together.SituationActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="5dp">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/situationButton"
+            android:text="상황판"
+            android:textStyle="bold"
+            android:textSize="18dp"
+            android:background="#ffffff"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/rankingButton"
+            android:text="랭킹표"
+            android:textStyle="bold"
+            android:textSize="18dp"
+            android:background="#ffffff"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/diaryButton"
+            android:text="일기"
+            android:textStyle="bold"
+            android:textSize="18dp"
+            android:background="#ffffff"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/settingButton"
+            android:text="설정"
+            android:textStyle="bold"
+            android:textSize="18dp"
+            android:background="#ffffff"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"/>
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:id="@+id/notice"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/exampleText"
+                android:text="김민제님"
+                android:textSize="18dp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/receiveString"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="100dp"
+                android:textSize="100dp"
+                android:ems="10"
+                android:gravity="center"
+                android:inputType="textMultiLine" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="금연시간 : "
+                    android:textColor="@color/colorDark"
+                    android:textSize="20dp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/smokingstopTime"
+                    android:textColor="@color/colorDark"
+                    android:textSize="20dp"
+                    android:textStyle="bold"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="절약시간 : "
+                    android:textColor="@color/colorDark"
+                    android:textSize="20dp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/saveTimeText"
+                    android:textColor="@color/colorDark"
+                    android:textSize="20dp"
+                    android:textStyle="bold"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="절약금액 :"
+                    android:textColor="@color/colorDark"
+                    android:textSize="20dp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/savemoneyText"
+                    android:textColor="@color/colorDark"
+                    android:textSize="20dp"
+                    android:textStyle="bold"/>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+</LinearLayout>
