@@ -74,11 +74,6 @@
             android:orientation="vertical"
             android:id="@+id/notice">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="여기는 일기 창입니다."/>
-
         </LinearLayout>
 
     </FrameLayout>

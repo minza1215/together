@@ -7,18 +7,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by 김민제 on 2017-04-30.
+ * Created by 김민제 on 2017-07-02.
  */
 
-public class LoginRequest extends StringRequest {
-    final static private String URL = "http://minza1215.cafe24.com/UserLogin.php";
+public class MapRequest extends StringRequest {
+
+    final static private String URL = "http://minza1215.cafe24.com/TogetherMap.php";
     private Map<String, String> parameters;
 
-    public LoginRequest(String userID, String userPassword, Response.Listener<String> listener){
+    public MapRequest(String Latitude, String Longitude, Response.Listener<String> listener){
         super(Method.POST, URL, listener, null);
         parameters = new HashMap<>();
-        parameters.put("userID", userID);
-        parameters.put("userPassword", userPassword);
+        parameters.put("Latitude", Latitude);
+        parameters.put("Longitude", Longitude);
     }
 
     @Override

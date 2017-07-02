@@ -72,12 +72,65 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:id="@+id/notice"/>
+            android:id="@+id/notice">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="여기는 랭킹표 창입니다."/>
+                android:orientation="horizontal"
+                android:layout_gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textColor="@color/colorDark"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:text="순위"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textColor="@color/colorDark"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:text="ID"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textColor="@color/colorDark"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.5"
+                    android:text="이름"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textColor="@color/colorDark"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="0.5"
+                    android:text="알람회수"/>
+
+
+            </LinearLayout>
+
+
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/rankingListView"
+                android:layout_margin="10dp"
+                android:dividerHeight="10dp"
+                android:divider="#ffffff">
+            </ListView>
+
+        </LinearLayout>
 
     </FrameLayout>
 
