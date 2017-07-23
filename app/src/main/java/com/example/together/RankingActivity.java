@@ -94,7 +94,7 @@ public class RankingActivity extends AppCompatActivity {
 
         @Override
         protected void onPreExecute(){
-            target = "http://minza1215.cafe24.com/RankingList.php";
+            target = "http://13.124.142.75/RankingList.php";
         }
 
         @Override

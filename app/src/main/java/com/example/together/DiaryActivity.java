@@ -56,5 +56,7 @@ public class DiaryActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+
     }
 }

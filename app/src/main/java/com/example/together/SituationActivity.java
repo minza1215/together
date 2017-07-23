@@ -57,7 +57,7 @@ public class SituationActivity extends AppCompatActivity {
     int mPairedDeviceCount = 0;
     Set<BluetoothDevice> mDevices;
 
-    // 블루투스 모듈을 사용하기 위한 오브젝트트
+    // 블루투스 모듈을 사용하기 위한 오브젝트
     BluetoothAdapter mBluetoothAdapter;
     BluetoothDevice mRemoteDevice;
     BluetoothSocket mSocket = null;
@@ -80,7 +80,8 @@ public class SituationActivity extends AppCompatActivity {
     static String year, month, day, hour, minute;
     static String smokingtime, smokingnumber, smokingvalue;
 
-    static String dataT = "101"; // 센서 값 받아들이는 변수
+    static String dataT; // 센서 값 받아들이는 변수
+    static float dataA;
     private AlertDialog dialog;
 
     @Override
@@ -166,12 +167,10 @@ public class SituationActivity extends AppCompatActivity {
             }
         });
 
-
-        startLocationService();
         checkDangerousPermissions();
-
     }
 
+    //절약금액 한국화폐 단위로 바꾸는 메소드
     public static String Comma_won(String junsu) {
         int inValues = Integer.parseInt(junsu);
         DecimalFormat Commas = new DecimalFormat("#,###");
@@ -196,7 +195,7 @@ public class SituationActivity extends AppCompatActivity {
                 while (true) {
                     try {
                         handler.sendMessage(handler.obtainMessage());
-                        Thread.sleep(1000);
+                        Thread.sleep(1000);     //센서값 바뀌는 속도 조절 값.
                     } catch (Throwable t) {
                     }
                 }
@@ -275,7 +274,7 @@ public class SituationActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "데이터 전송중 오류가 발생", Toast.LENGTH_LONG).show();
             finish();  // App 종료
         }
-    }
+    } //아두이노 한테 보내는 메소드인데 노 필요 일단은 주석처리..
 
     // 디바이스랑 연결했을 때의 메소드..
     void connectToSelectedDevices(String selectDeviceName) {
@@ -323,7 +322,6 @@ public class SituationActivity extends AppCompatActivity {
                                     System.arraycopy(readBuffer, 0, encodedBytes, 0, encodedBytes.length);
 
                                     dataT = new String(encodedBytes , "UTF-8"); //UTF-8은 한글을 만들기 위해서 하였다.
-
                                     readBufferPosition = 0;
 
                                     handler.post(new Runnable() {
@@ -332,7 +330,8 @@ public class SituationActivity extends AppCompatActivity {
                                             mTextReceive.setText(dataT);
 
                                             // 센서 값을 통한 푸쉬알람
-                                            if (Float.parseFloat(dataT) > 60) {
+                                            if (Float.parseFloat(dataT) > 50) {
+
                                                 String ContentTitle = "Together Push Alarm";
                                                 String ContentText = "푸시알람";
 
@@ -365,10 +364,10 @@ public class SituationActivity extends AppCompatActivity {
                                                 notiManager.notify(0, noti);
 
                                                 Toast.makeText(SituationActivity.this, "담배 나빠!", Toast.LENGTH_LONG).show();
+
+                                                startLocationService(dataT); //
+
                                             }
-
-
-
                                             //mEditReceive.setText(mEditReceive.getText().toString() + data + mStrDelimiter);
                                         }
                                     });
@@ -402,7 +401,6 @@ public class SituationActivity extends AppCompatActivity {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("블루투스 장치 선택");
-
 
         // 페어링 된 블루투스 장치의 이름 목록 작성
         List<String> listItems = new ArrayList<String>();
@@ -509,94 +507,159 @@ public class SituationActivity extends AppCompatActivity {
     /**
      * 위치 정보 확인을 위해 정의한 메소드
      */
-    private void startLocationService() {
+    private void startLocationService(String dataT) {
         // 위치 관리자 객체 참조
         LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
         // 위치 정보를 받을 리스너 생성
         GPSListener gpsListener = new GPSListener();
+
         long minTime = 10000;
         float minDistance = 0;
+        dataA = Float.parseFloat(dataT);
 
-        try {
-            // GPS를 이용한 위치 요청
-            manager.requestLocationUpdates(
-                    LocationManager.GPS_PROVIDER,
-                    minTime,
-                    minDistance,
-                    gpsListener);
+            try {
+                    // GPS를 이용한 위치 요청
+                    manager.requestLocationUpdates(
+                            LocationManager.GPS_PROVIDER,
+                            minTime,
+                            minDistance,
+                            gpsListener);
 
-            // 네트워크를 이용한 위치 요청
-            manager.requestLocationUpdates(
-                    LocationManager.NETWORK_PROVIDER,
-                    minTime,
-                    minDistance,
-                    gpsListener);
+                    // 네트워크를 이용한 위치 요청
+                    manager.requestLocationUpdates(
+                            LocationManager.NETWORK_PROVIDER,
+                            minTime,
+                            minDistance,
+                            gpsListener);
 
-            // 위치 확인이 안되는 경우에도 최근에 확인된 위치 정보 먼저 확인
-            Location lastLocation = manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            if (lastLocation != null) {
-                Double latitude = lastLocation.getLatitude();
-                Double longitude = lastLocation.getLongitude();
+                // 위치 확인이 안되는 경우에도 최근에 확인된 위치 정보 먼저 확인
+                /*Location lastLocation = manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                if (lastLocation != null) {
+                    Double latitude = lastLocation.getLatitude();
+                    Double longitude = lastLocation.getLongitude();
 
-                Toast.makeText(getApplicationContext(), "Last Known Location : " + "Latitude : " + latitude + "\nLongitude:" + longitude, Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getApplicationContext(), "Last Known Location : " + "Latitude : " + latitude + "\nLongitude:" + longitude, Toast.LENGTH_LONG).show();
+                }*/
+            } catch(SecurityException ex) {
+                ex.printStackTrace();
             }
-        } catch(SecurityException ex) {
-            ex.printStackTrace();
-        }
 
-        Toast.makeText(getApplicationContext(), "위치 확인이 시작되었습니다. 로그를 확인하세요.", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(), "위치 확인이 시작되었습니다. 로그를 확인하세요.", Toast.LENGTH_SHORT).show();
 
     }
 
     /**
      * 리스너 클래스 정의
      */
-    private class GPSListener implements LocationListener {
+    public class GPSListener extends SituationActivity implements LocationListener {
         /**
          * 위치 정보가 확인될 때 자동 호출되는 메소드
          */
+
+        float data = SituationActivity.dataA; //센서값 받아오는 변수..
+
+        //위치 정보 판별해서 DB로 전송해주는 메소드
         public void onLocationChanged(Location location) {
-            Double Latitude = location.getLatitude();
-            Double Longitude = location.getLongitude();
-            if(Float.parseFloat(dataT) > 100){
-                String msg = "Latitude : "+ Latitude + "\nLongitude:"+ Longitude;
+
+                Integer LocationRange = 0;
+                //String NoRange = "8989";
+                Double Latitude = location.getLatitude();
+                Double Longitude = location.getLongitude();
+            /*if(Float.parseFloat(dataT) > 70) {
+                String msg = "Latitude : " + Latitude + "\nLongitude:" + Longitude;
                 Log.i("GPSListener", msg);
 
                 Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
-            }
+            }*/
 
-            Response.Listener<String> responseListener = new Response.Listener<String>() {
+                Response.Listener<String> responseListener = new Response.Listener<String>() {
 
-                @Override
-                public void onResponse(String response) {
-                    try{
-                        JSONObject jsonResponse = new JSONObject(response);
-                        boolean success = jsonResponse.getBoolean("success");
-                        if(success){
-                            AlertDialog.Builder builder = new AlertDialog.Builder(SituationActivity.this);
-                            dialog = builder.setMessage("위치를 DB에 보냅니다. ")
+                    @Override
+                    public void onResponse(String response) {
+                        try{
+                            JSONObject jsonResponse = new JSONObject(response);
+                            boolean success = jsonResponse.getBoolean("success");
+                            if(success){
+                                AlertDialog.Builder builder = new AlertDialog.Builder(SituationActivity.this);
+                            /*dialog = builder.setMessage("위치를 DB에 보냅니다. ")
                                     .setPositiveButton("확인", null)
                                     .create();
-                            dialog.show();
-                        }else{
-                            AlertDialog.Builder builder = new AlertDialog.Builder(SituationActivity.this);
-                            dialog = builder.setMessage("위치를 DB에 보낼 수 없습니다. ")
+                            dialog.show();*/
+                            }else{
+                                AlertDialog.Builder builder = new AlertDialog.Builder(SituationActivity.this);
+                            /*dialog = builder.setMessage("위치를 DB에 보낼 수 없습니다. ")
                                     .setNegativeButton("확인", null)
                                     .create();
-                            dialog.show();
+                            dialog.show();*/
+                            }
+                        }
+                        catch(Exception e){
+                            e.printStackTrace();
                         }
                     }
-                    catch(Exception e){
-                        e.printStackTrace();
+                };
+
+                // 한경대학교 위도 64등분
+                double [] wi = {37.009617,37.00968361,37.00975022,37.00981683,
+                        37.00988344,37.00995005,37.01001666,37.01008327,
+                        37.01014988,37.01021648,37.01028309,37.0103497,
+                        37.01041631,37.01048292,37.01054953,37.01061614,
+                        37.01068275,37.01074936,37.01081597,37.01088258,
+                        37.01094919,37.0110158,37.01108241,	37.01114902,
+                        37.01121562,37.01128223,37.01134884,37.01141545,
+                        37.01148206,37.01154867,37.01161528,37.01168189,
+                        37.0117485,37.01181511,	37.01188172,37.01194833,
+                        37.01201494,37.01208155,37.01214816,37.01221477,
+                        37.01228137,37.01234798,37.01241459,37.0124812,
+                        37.01254781,37.01261442,37.01268103,37.01274764,
+                        37.01281425,37.01288086,37.01294747,37.01301408,
+                        37.01308069,37.0131473,	37.01321391,37.01328052,
+                        37.01334712,37.01341373,37.01348034,37.01354695,
+                        37.01361356,37.01368017,37.01374678,37.01381339,
+                        37.01388
+                };
+
+                // 한경대학교 경도 64등분
+                double [] gy = {127.260058,	127.2601549, 127.2602517, 127.2603486,
+                        127.2604454,127.2605423,127.2606392,127.260736,
+                        127.2608329,127.2609297,127.2610266,127.2611235,
+                        127.2612203,127.2613172,127.261414,	127.2615109,
+                        127.2616078,127.2617046,127.2618015,127.2618983,
+                        127.2619952,127.262092,127.2621889,	127.2622858,
+                        127.2623826,127.2624795,127.2625763,127.2626732,
+                        127.2627701,127.2628669,127.2629638,127.2630606,
+                        127.2631575,127.2632544,127.2633512,127.2634481,
+                        127.2635449,127.2636418,127.2637387,127.2638355,
+                        127.2639324,127.2640292,127.2641261,127.264223,
+                        127.2643198,127.2644167,127.2645135,127.2646104,
+                        127.2647073,127.2648041,127.264901,	127.2649978,
+                        127.2650947,127.2651915,127.2652884,127.2653853,
+                        127.2654821,127.265579,	127.2656758,127.2657727,
+                        127.2658696,127.2659664,127.2660633,127.2661601,
+                        127.266257
+                };
+
+                for(int i = 0; i< wi.length; i++){
+                    for(int j = 0; j< gy.length; j++){
+                        if(Latitude > wi[i] && Latitude < (wi[i+1]) && Longitude > gy[j] && Longitude < (gy[j+1])){
+                            //System.out.println("구역은 " + LocationRange + " 입니다.");
+                            if(data > 70) {
+                                MapRequest mapRequest = new MapRequest(LocationRange + "", Latitude + "", Longitude + "", responseListener);
+                                RequestQueue queue = Volley.newRequestQueue(SituationActivity.this);
+                                queue.add(mapRequest);
+                                data = 0; // 이걸 해줘야 센서의 안정수치로 들어가면 DB에 전송이 안된다.
+                            }
+                        }
+                        LocationRange++;
                     }
                 }
-            };
 
-            MapRequest mapRequest = new MapRequest(Latitude+"", Longitude+"", responseListener);
+
+
+            /*MapRequest mapRequest = new MapRequest(NoRange ,Latitude+"", Longitude+"", responseListener);
             RequestQueue queue = Volley.newRequestQueue(SituationActivity.this);
-            queue.add(mapRequest);
-
+            queue.add(mapRequest);*/
         }
 
         public void onProviderDisabled(String provider) {

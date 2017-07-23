@@ -12,12 +12,13 @@ import java.util.Map;
 
 public class MapRequest extends StringRequest {
 
-    final static private String URL = "http://minza1215.cafe24.com/TogetherMap.php";
+    final static private String URL = "http://13.124.142.75/TogetherMap.php";
     private Map<String, String> parameters;
 
-    public MapRequest(String Latitude, String Longitude, Response.Listener<String> listener){
+    public MapRequest(String LocationRange, String Latitude, String Longitude, Response.Listener<String> listener){
         super(Method.POST, URL, listener, null);
         parameters = new HashMap<>();
+        parameters.put("LocationRange", LocationRange);
         parameters.put("Latitude", Latitude);
         parameters.put("Longitude", Longitude);
     }

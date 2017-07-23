@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onPreExecute(){
-            target = "http://minza1215.cafe24.com/NoticeList.php";
+            target = "http://13.124.142.75/NoticeList.php";
         }
 
         @Override
